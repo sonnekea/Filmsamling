@@ -2,31 +2,31 @@ import java.util.Scanner;
 
     public class UserInterface {
         Scanner input = new Scanner(System.in);
-        Controller movieController = new Controller();
+        Controller controller = new Controller();
 
         public void startProgram() {
-            int userChoice = 0;
+            int choice = 0;
             int sentinel = 6;
 
-            while (userChoice < sentinel) {
-                userChoice = movieMenu();
+            while (choice < sentinel) {
+                choice = movieMenu();
 
-                if (userChoice == 1) {
+                if (choice == 1) {
                     addMovie();
 
-                } else if (userChoice == 2) {
-                    movieController.printCollection();
+                } else if (choice == 2) {
+                    controller.printCollection();
 
-                } else if (userChoice == 3) {
-                    int movieNumber = getMovieNumber();
-                    movieController.printMovie(movieNumber);
+                } else if (choice == 3) {
+                    int movieNumber = getMovieID();
+                    controller.printMovie(movieNumber);
 
-                } else if (userChoice == 4) {
+                } else if (choice == 4) {
                     String title = getTitle();
-                    movieController.searchMovie(title);
-                } else if (userChoice == 5) {
+                    controller.searchMovie(title);
+                } else if (choice == 5) {
                     editMovie();
-                } else if (userChoice >= sentinel) {
+                } else if (choice >= sentinel) {
                     System.out.println("Afsluttet");
                 }
             }
@@ -68,13 +68,13 @@ import java.util.Scanner;
             System.out.println("Genre: ");
             String genre = input.next();
 
-            movieController.addMovie(title, director, year, color, minute, genre);
+            controller.addMovie(title, director, year, color, minute, genre);
         }
 
-        private int getMovieNumber() {
+        private int getMovieID() {
             System.out.println("Hvilken film vil du printe?");
-            int movieNumber = input.nextInt();
-            return movieNumber;
+            int movieID = input.nextInt();
+            return movieID;
         }
 
         private String getTitle() {
@@ -88,8 +88,8 @@ import java.util.Scanner;
             int movieNumber = input.nextInt();
             input.nextLine();
             String nejTak = "nej";
-            movieController.printMovie(movieNumber);
-            Movie m = movieController.getMovie(movieNumber);
+            controller.printMovie(movieNumber);
+            Movie m = controller.getMovie(movieNumber);
             System.out.println("Vil du ændre titlen? Hvis ja, skriv ny titel. Hvis nej, skriv 'nej'.");
             String titleEdit = input.nextLine();
             if (titleEdit != nejTak) {
@@ -136,7 +136,7 @@ import java.util.Scanner;
             } else {
                 genreEdit = m.getGenre();
             }
-            movieController.editMovie(movieNumber, titleEdit, directorEdit, yearEdit, colorEdit, lengthEdit, genreEdit);
+            controller.editMovie(movieNumber, titleEdit, directorEdit, yearEdit, colorEdit, lengthEdit, genreEdit);
         }
     }
 
